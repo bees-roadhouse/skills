@@ -8,10 +8,10 @@ Implement the work described by the user in the spec or tickets.
 
 If the user passes a ticket reference, fetch it from the issue tracker and state its title before starting. If the reference is ambiguous, ask.
 
-Call the Skill tool with "tdd" where possible, at pre-agreed seams.
+Before writing code, make the branch the house rules ask for (its name, its base, and where its worktree lives come from your profile's CLAUDE.md and the repo's CLAUDE.md). Commit only to that branch, never to the default branch.
 
-Run typechecking regularly, single test files regularly, and the full test suite once at the end.
+Call the Skill tool with "tdd" where possible, at seams you state in your reply.
 
-Once done, call the Skill tool with "code-review" to review the work.
+Run typechecking regularly, single test files regularly, and the full test suite once at the end. Follow the repo's and profile's build rules (for example, one heavy build at a time on a shared machine).
 
-Commit your work to the current branch.
+Once done, commit with subjects in the house format, push, and open the PR: call the Skill tool with "pr" for the body. Then tell the user the PR is ready for `/code-review`, which reviews it with fresh context against the linked issue.

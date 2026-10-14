@@ -10,7 +10,7 @@ The user has asked for a **retrospective**. You are suggesting improvements to t
 
 1. Call the Skill tool with `writing-for-agents` for the writing style guide.
 
-2. Read the primary sources for the session the user specifies. This may mean searching through session logs on this machine. If the user doesn't specify a session, default to the current one.
+2. Read the primary sources for the session the user specifies. Session transcripts are the `*.jsonl` files under your profile's config directory (`$CLAUDE_CONFIG_DIR/projects/<slugged-cwd>/`, or `~/.claude/projects/` when `CLAUDE_CONFIG_DIR` is unset). If the user doesn't specify a session, default to the current one.
 
 3. Look for candidates for improvement in these categories.
 
@@ -22,7 +22,7 @@ The user has asked for a **retrospective**. You are suggesting improvements to t
 - **No-ops**: look for instructions in steering files that don't modify the agent's behavior. _Use when_ the steering files are large and unwieldy.
 - **Information access**: look for opportunities to increase the agent's access to information. Teeing dev server logs, readonly access to third-party services. _Use when_ a crucial piece of information was not available to the agent.
 
-4. Present these candidates to the user, in order of severity.
+4. Present these candidates to the user, in order of severity. They are proposals: name the tracked file each would change (the repo's files, or the version-controlled source of a profile's instruction file, never a live copy that links to it), and change nothing until the user picks. Changes the user approves land per the profile's rules for instruction changes.
 
 ## Reference
 

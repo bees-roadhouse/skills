@@ -1,6 +1,6 @@
 # Design It Twice
 
-When the user wants to explore alternative interfaces for a chosen deepening candidate, use this parallel sub-agent pattern. Based on "Design It Twice" (Ousterhout): your first idea is unlikely to be the best.
+Run this only when the user asks to explore alternative interfaces for a chosen deepening candidate. It uses parallel sub-agents only if your profile's rules allow sub-agents (or the user asked for them); otherwise produce the designs yourself, one after another, each started fresh from the brief. Based on "Design It Twice" (Ousterhout): your first idea is unlikely to be the best.
 
 Uses the vocabulary in [SKILL.md](SKILL.md): **module**, **interface**, **seam**, **adapter**, **leverage**.
 
