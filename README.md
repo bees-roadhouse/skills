@@ -10,6 +10,22 @@
 
 # Skills For Real Engineers
 
+> **This is Bee's Roadhouse's fork** of [mattpocock/skills](https://github.com/mattpocock/skills) (MIT, see [LICENSE](./LICENSE); all credit for the skills is upstream's). Everything below this box is upstream's README and describes upstream, not this fork.
+>
+> **What we changed, and why** (2026-10-14, at Nate's ask, so the skills can run in every Claude profile on the Roadhouse desktop, the DTC one included):
+>
+> - **Wave 1 only.** The plugin manifest ships 16 skills: tdd, diagnosing-bugs, pr, code-review, codebase-design, domain-modeling, grilling, grill-me, grill-with-docs, wait-what, writing-for-agents, to-spec, to-tickets, implement, retro, handoff. The others stay in the tree, unshipped.
+> - **Renamed** to marketplace `bees-roadhouse`, plugin `roadhouse-skills`, so it never collides with `mattpocock-skills@claude-plugins-official`. No `version` in `plugin.json`, so every commit to `main` rolls out.
+> - **No npm at install.** `package.json`, the lockfile, `.changeset/` and the version-sync and release tooling are gone; `scripts/link-skills.sh` is gone too (it wrote into `~/.claude/skills`, which no profile here may use).
+> - **The skills defer to the house.** `/setup-matt-pocock-skills` is replaced by a pointer to the profile's and repo's `CLAUDE.md`: GitHub Issues is the tracker, and labels, branch names, commit subjects and PR shape come from those files, never from this plugin. Nothing here hardcodes one organisation's labels or paths, because profiles on both sides of the house load the same plugin.
+> - **Sub-agents only where allowed.** A user-invoked skill (a `/command`) may spawn sub-agents, since typing it is the request. Model-invoked skills spawn them only when the profile's rules allow it. `code-review` is user-invoked.
+> - **Per-skill patches:** tdd states its seams and proceeds; diagnosing-bugs keeps human-in-the-loop for human-only steps with at most one elevation; pr adds `Closes #n`, a Why line and the session's attribution; code-review takes its spec from the PR's linked issue and its standards from the repo and profile `CLAUDE.md`; codebase-design runs design-it-twice only when asked; domain-modeling defers to a repo's existing decision-record convention; grilling looks facts up itself; writing-for-agents keeps dated provenance; implement branches, commits and opens the PR per house rules; retro reads transcripts under `CLAUDE_CONFIG_DIR` and proposes changes against tracked files; handoff writes where the profile's continuity rules say.
+>
+> **Install.** On the Roadhouse desktop every profile gets it from brh-infra's `workstation/profiles/settings.common.json`. Elsewhere: `/plugin install roadhouse-skills --marketplace bees-roadhouse/skills`.
+>
+> Upstream changes are merged by hand, read first, never wholesale.
+
+
 [![skills.sh](https://skills.sh/b/mattpocock/skills)](https://skills.sh/mattpocock/skills)
 
 My agent skills that I use every day to do real engineering - not vibe coding.

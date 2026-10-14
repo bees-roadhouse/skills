@@ -12,6 +12,10 @@ metadata:
 Use this template for writing the PR body:
 
 ```markdown
+Closes #<issue>
+
+**Why:** <one line: the reason this change exists>
+
 ## Summary
 
 <diagram, diff-sketch, or tree>
@@ -33,6 +37,8 @@ Use this template for writing the PR body:
 ```
 
 ## Sections
+
+The issue reference and the Why line come first. Use the closing keyword and issue the repo's rules call for (the profile's CLAUDE.md and the repo's CLAUDE.md own the PR rules; where they ask for more, add it). End the body with any attribution lines your session or profile requires for pull requests, exactly as given.
 
 Skip all preambles and keep prose brief. Use the user's domain language from `GLOSSARY.md`.
 
@@ -157,7 +163,7 @@ You may use one of these, you may use several, it is unlikely you will use all o
 
 ### Evidence
 
-Concrete evidence that the change works. Show a before and after.
+Concrete evidence that the change works: this section is the PR's "how it was tested". Show a before and after, and say what you ran. If something could not be verified (it needs a deploy, hardware, or the user), say so here rather than leaving it implied.
 
 Screenshots are S-tier - when the environment is set up for it and the change is visual.
 

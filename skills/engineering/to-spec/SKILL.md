@@ -6,7 +6,7 @@ disable-model-invocation: true
 
 This skill takes the current conversation context and codebase understanding and produces a spec. Do NOT interview the user; just synthesize what you already know.
 
-The issue tracker and triage label vocabulary should have been provided to you. If not, tell the user to run `/setup-matt-pocock-skills`.
+Issues live in the repo's GitHub Issues; labels, branch names, commit subjects and PR shape follow the house rules in your profile's CLAUDE.md and the repo's CLAUDE.md.
 
 ## Process
 
@@ -14,9 +14,9 @@ The issue tracker and triage label vocabulary should have been provided to you. 
 
 2. Sketch out the seams at which you're going to test the feature. Existing seams should be preferred to new ones. Use the highest seam possible. If new seams are needed, propose them at the highest point you can. The fewer seams across the codebase, the better - the ideal number is one.
 
-Check with the user that these seams match their expectations.
+State these seams in your reply and carry on; stop to ask only if a seam is genuinely contested.
 
-3. Write the spec using the template below, then publish it to the project issue tracker. Apply the `ready-for-agent` triage label - no need for additional triage.
+3. Write the spec using the template below, then publish it as a GitHub issue in the repo. Apply the labels the house rules ask for (what kind of change it is, and its state: `ready-for-agent` where the rules use state labels), creating none the repo does not already define.
 
 <spec-template>
 

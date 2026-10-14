@@ -1,15 +1,15 @@
 {
-  "name": "mattpocock",
+  "name": "bees-roadhouse",
   "owner": {
-    "name": "Matt Pocock",
-    "url": "https://www.aihero.dev"
+    "name": "Bee's Roadhouse",
+    "url": "https://github.com/bees-roadhouse"
   },
-  "description": "Matt Pocock's skills for real engineering, as an installable Claude Code plugin.",
+  "description": "Bee's Roadhouse plugins: a trimmed, house-patched fork of Matt Pocock's engineering skills.",
   "plugins": [
     {
-      "name": "mattpocock-skills",
+      "name": "roadhouse-skills",
       "source": "./",
-      "description": "Matt Pocock's agent skills for real engineering (grilling, spec/ticket flows, TDD, code review, domain modelling and more).",
+      "description": "Matt Pocock's engineering skills, trimmed to wave 1 and patched to defer to the profile's and repo's own rules (fork of mattpocock/skills).",
       "category": "engineering",
       "keywords": [
         "engineering",

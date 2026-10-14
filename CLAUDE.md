@@ -1,3 +1,12 @@
+## This fork
+
+This is Bee's Roadhouse's fork; the README's opening box says what changed and why. Its rules override the upstream ones below where they disagree:
+
+- `.claude-plugin/plugin.json` ships the **wave 1** set listed in the README box, not every promoted skill. A promoted skill missing from the manifest is deliberate.
+- Patches defer to the loading profile's `CLAUDE.md` and the repo's `CLAUDE.md` for tracker, labels, branches, commit subjects, PR shape, where notes go, and whether sub-agents are allowed. Never hardcode one organisation's labels or paths in a skill.
+- `docs/`, `.agents/install-block.md` and the `ask-matt` router describe upstream and are not kept in sync here.
+- There is no npm tooling and no `scripts/link-skills.sh`; validate a manifest change with `claude plugin validate .` run under a throwaway `CLAUDE_CONFIG_DIR`. Two warnings are expected and fine: no `version` (deliberate, so each commit rolls out) and the root `CLAUDE.md` (it is for contributors, not plugin context), which is why `--strict` fails here.
+
 Skills are organized into bucket folders under `skills/`:
 
 - `engineering/`: daily code work
@@ -19,8 +28,6 @@ Skills in `engineering/` and `productivity/` also have a human-facing docs page 
 Every `SKILL.md` is either user-invoked (`disable-model-invocation: true` plus `policy.allow_implicit_invocation: false` in `agents/openai.yaml`, reachable only by the human) or model-invoked (model- or user-reachable). See [.agents/invocation.md](./.agents/invocation.md).
 
 [`ask-matt`](./skills/engineering/ask-matt/SKILL.md) is the router that maps every user-reachable skill and how they relate. The same trigger that re-syncs a docs page applies to it: whenever you add, rename, remove, or change how a user-reachable skill fits the flows, re-read `ask-matt`'s `SKILL.md` and update it so the map stays accurate: a new skill it never mentions, or a stale one it still routes to, is a router that lies.
-
-To (re)link every skill outside `deprecated/` and `misc/` into the local harness skill directories (`~/.claude/skills`, `~/.agents/skills`), run `scripts/link-skills.sh`. Each entry is a symlink into this repo, so a `git pull` keeps installed skills current; re-run the script after adding, removing, or renaming a skill.
 
 No em-dashes anywhere in this repo's prose (`SKILL.md` files, docs, `README.md`, `CHANGELOG.md`, ADRs, changesets, code comments). Where a sentence reaches for one, rewrite it instead with a comma, colon, period, parentheses, or a conjunction, whichever the sentence actually wants; never do a blind character substitution.
 
