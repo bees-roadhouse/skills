@@ -34,5 +34,5 @@ When the shape of that interface is itself in question (how deep the module is, 
 ## Rules of the loop
 
 - **Red before green.** Write the failing test first, then only enough code to pass it. Don't anticipate future tests or add speculative features.
-- **One slice at a time.** One seam, one test, one minimal implementation per cycle.
+- **One slice at a time.** One seam, one test, one minimal implementation per cycle. This is the coding rhythm inside a job, not a ticket or merge-request size: the job (see `to-tickets`) is the whole piece of product, and this loop is how you build it.
 - **Refactoring is not part of the loop.** It belongs to the review stage (see the `code-review` skill), not the red → green implementation cycle.

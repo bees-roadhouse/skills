@@ -9,7 +9,7 @@ The tool that hosts a repo's issues: GitHub Issues, Linear, a local `.scratch/` 
 _Avoid_: backlog manager, backlog backend, issue host
 
 **Issue**:
-A single tracked unit of work inside an **Issue tracker**: a bug, task, spec, or slice produced by `to-tickets`.
+A single tracked unit of work inside an **Issue tracker**: a bug, task, spec, or job produced by `to-tickets`. In this fork a job is a whole piece of product one person finishes, with done written as what the user can do (2026-10-30).
 _Avoid_: ticket (use only when quoting external systems that call them tickets, or for a **Decision ticket**, see below)
 
 **Decision ticket**:

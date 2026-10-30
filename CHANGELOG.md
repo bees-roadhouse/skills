@@ -1,3 +1,7 @@
+## 2026-10-30
+
+- `to-tickets` writes jobs, not tracer-bullet slices: a whole piece of product per person, done as a sentence about the user, one MR per job, the old path deleted in the same job. `tdd` says its one-test cycle is a rhythm inside a job, not a ticket size. Nate, Bee's Roadhouse: "stop the slice thing. give person a job to finish.. this shit isn't released yet".
+
 # mattpocock-skills
 
 ## 1.3.1
