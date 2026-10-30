@@ -1,14 +1,18 @@
 ---
 name: to-tickets
-description: Break a plan, spec, or the current conversation into tracer-bullet tickets, each declaring its blocking edges, published as GitHub issues.
+description: Break a plan, spec, or the current conversation into jobs, whole pieces of product one person finishes, each with a done sentence, published as issues.
 disable-model-invocation: true
 ---
 
 # To Tickets
 
-Break a plan, spec, or conversation into a set of **tickets**: tracer-bullet vertical slices, each declaring the tickets that **block** it.
+Break a plan, spec, or conversation into **jobs**: whole pieces of a product, each handed to one person to finish, each with **done** written as what the user can do when it is finished.
 
-Issues live in the repo's GitHub Issues; labels, branch names, commit subjects and PR shape follow the house rules in your profile's CLAUDE.md and the repo's CLAUDE.md.
+Issues live in the repo's tracker (GitHub Issues or GitLab Issues, per the house rules); labels, branch names, commit subjects and MR shape follow the house rules in your profile's CLAUDE.md and the repo's CLAUDE.md.
+
+## Why jobs and not slices
+
+Bee's Roadhouse, 2026-10-30, after a month of tracer-bullet slices: "stop the slice thing. give person a job to finish.. this shit isn't released yet". Nothing is released, so there is no production to protect with strangler routes, parity-tested migrations or expand-contract sequences. Thin slices multiplied merge requests, reviews and builds, and a day of ten merges shipped nothing anyone could open. A job is sized so that finishing it puts something in front of the user.
 
 ## Process
 
@@ -18,48 +22,48 @@ Work from whatever is already in the conversation context. If the user passes a 
 
 ### 2. Explore the codebase (optional)
 
-If you have not already explored the codebase, do so to understand the current state of the code. Ticket titles and descriptions should use the project's domain glossary vocabulary, and respect ADRs in the area you're touching.
+If you have not already explored the codebase, do so to understand the current state of the code. Job titles and descriptions use the project's domain glossary vocabulary, and respect ADRs in the area you're touching.
 
-Look for opportunities to prefactor the code to make the implementation easier. "Make the change easy, then make the easy change."
+### 3. Draft the jobs
 
-### 3. Draft vertical slices
+Break the work into **jobs**.
 
-Break the work into **tracer bullet** tickets.
+<job-rules>
 
-<vertical-slice-rules>
+- A job is a whole piece of the product: a screen that works end to end on the real instance, a backend in the new language with the old one deleted, an app on the device. Not a layer, not a step, not a tracer bullet.
+- **Done is a sentence about the user:** "Nate signs in at hive.gumbees.ai, makes a document, edits it, and sees both versions." If done cannot be written that way, the job is a layer or a step; fold it into the job it serves.
+- One person finishes one job before taking the next. A job that needs two people is two jobs with a named seam between them.
+- The old path goes in the same job. No strangler route beside the old one, no parity test suite kept alive for a migration, no expand-contract sequence: replace, delete, and let restart-from-main be the safety net.
+- A job is one merge request, opened with auto-merge set, reviewed once on the whole. A job that outgrows a day gets a second merge request, never a tenth.
+- Estimate in hours of the person's time, and name the real limits (review throughput, CI capacity, a decision only the owner can make).
 
-- Each slice cuts a narrow but COMPLETE path through every layer (schema, API, UI, tests): vertical, NOT a horizontal slice of one layer
-- A completed slice is demoable or verifiable on its own
-- Each slice is sized to fit in a single fresh context window
-- Any prefactoring should be done first
+</job-rules>
 
-</vertical-slice-rules>
-
-Give each ticket its **blocking edges**: the other tickets that must complete before it can start. A ticket with no blockers can start immediately.
-
-**Wide refactors are the exception to vertical slicing.** A **wide refactor** is one mechanical change (rename a column, retype a shared symbol) whose **blast radius** fans across the whole codebase, so a single edit breaks thousands of call sites at once and no vertical slice can land green. Don't force it into a tracer bullet; sequence it as **expand–contract**. First expand: add the new form beside the old so nothing breaks. Then migrate the call sites over in batches sized by blast radius (per package, per directory), each batch its own ticket blocked by the expand, keeping CI green batch to batch because the old form still exists. Finally contract: delete the old form once no caller remains, in a ticket blocked by every migrate batch. When even the batches can't stay green alone, keep the sequence but let them share an integration branch that all block a final integrate-and-verify ticket; green is promised only there.
+Give each job its **blockers**: the other jobs that must finish before it can start. Most jobs have none; a long blocker chain is a sign the work was cut into steps again.
 
 ### 4. Quiz the user
 
-Present the proposed breakdown as a numbered list. For each ticket, show:
+Present the proposed jobs as a numbered list. For each job, show:
 
 - **Title**: short descriptive name
-- **Blocked by**: which other tickets (if any) must complete first
-- **What it delivers**: the end-to-end behaviour this ticket makes work
+- **Done**: the sentence about the user
+- **Owner**: who finishes it
+- **Blocked by**: which other jobs (if any) must finish first
+- **Hours**: the estimate, with the real limits named
 
 Ask the user:
 
-- Does the granularity feel right? (too coarse / too fine)
-- Are the blocking edges correct: does each ticket only depend on tickets that genuinely gate it?
-- Should any tickets be merged or split further?
+- Is each job whole? Could it be finished and used on its own?
+- Is anything a step dressed as a job? Fold it in.
+- Are the owners right, one person per job?
 
-Iterate until the user approves the breakdown.
+Iterate until the user approves.
 
-### 5. Publish the tickets to the configured tracker
+### 5. Publish the jobs to the tracker
 
-Publish the approved tickets as GitHub issues in the repo, one issue per ticket, in dependency order (blockers first) so each ticket's blocking edges can reference real issue numbers. Set GitHub's native "blocked by" dependency where the repo supports it; otherwise list the blockers in the ticket's "Blocked by" section. If the source was an existing issue, make each ticket its sub-issue. Label each ticket per the house rules (what kind of change it is, and `ready-for-agent` where the rules use state labels); the tickets are agent-grabbable by construction. GitHub Issues is the only tracker: tickets never go to local files.
+Publish the approved jobs as issues in the repo, one issue per job, blockers first so each job's blockers can reference real issue numbers. Set the tracker's native "blocked by" dependency where it supports it; otherwise list the blockers in the issue's "Blocked by" section. If the source was an existing issue, make each job its sub-issue. Label each job per the house rules (what kind of change it is, and `ready-for-agent` where the rules use state labels). The tracker is the only record: jobs never go to local files.
 
-Work the **frontier**: any ticket whose blockers are all done. For a purely linear chain that means top to bottom.
+Work the **frontier**: any job whose blockers are all done.
 
 Do NOT close or modify any parent issue.
 
@@ -69,18 +73,26 @@ Do NOT close or modify any parent issue.
 
 A reference to the parent issue on the tracker (if the source was an existing issue, otherwise omit this section).
 
+## Done
+
+One sentence: what the user can do on the real instance when this job is finished, with the old path gone.
+
 ## What to build
 
-The end-to-end behaviour this ticket makes work, from the user's perspective, not layer-by-layer implementation.
+The whole piece, from the user's perspective, not layer-by-layer implementation.
 
 ## Acceptance criteria
 
-- [ ] Criterion 1
-- [ ] Criterion 2
+- [ ] Things the user does, one per line
+- [ ] The old path is deleted
+
+## Owner and estimate
+
+Who finishes it, in hours, with the real limits named.
 
 ## Blocked by
 
-- A reference to each blocking ticket, or "None (can start immediately)". Omit this section when blockers were set as native edges.
+- A reference to each blocking job, or "None (can start immediately)". Omit this section when blockers were set as native edges.
 
 </issue-template>
 
