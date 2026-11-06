@@ -1,18 +1,20 @@
 ---
 name: to-tickets
-description: Break a plan, spec, or the current conversation into jobs, whole pieces of product one person finishes, each with a done sentence, published as issues.
+description: Turn a plan, spec, or the current conversation into a job (one issue, one branch, one merge request) with a done sentence, split only where one merge request can't hold it, published as issues.
 disable-model-invocation: true
 ---
 
 # To Tickets
 
-Break a plan, spec, or conversation into **jobs**: whole pieces of a product, each handed to one person to finish, each with **done** written as what the user can do when it is finished.
+Turn a plan, spec, or conversation into a **job**: a whole piece of a product, handed to one person to finish, with **done** written as what the user can do when it is finished. One ask is one job. Return more than one only where one merge request can't hold the work.
 
 Issues live in the repo's tracker (GitHub Issues or GitLab Issues, per the house rules); labels, branch names, commit subjects and MR shape follow the house rules in your profile's CLAUDE.md and the repo's CLAUDE.md.
 
 ## Why jobs and not slices
 
 Bee's Roadhouse, 2026-10-30, after a month of tracer-bullet slices: "stop the slice thing. give person a job to finish.. this shit isn't released yet". Nothing is released, so there is no production to protect with strangler routes, parity-tested migrations or expand-contract sequences. Thin slices multiplied merge requests, reviews and builds, and a day of ten merges shipped nothing anyone could open. A job is sized so that finishing it puts something in front of the user.
+
+Bee's Roadhouse, 2026-11-06, after a native Console planned as three merge requests and a port planned as four milestones: "all the enhancements for the dtc desktop client portal app need to be in one enhancement. Update all of our practices and skills to stop splitting up work so much, it is inefficient". Splitting by size or milestone costs the same extra reviews, builds and hand-offs that slices did. A big job stays one job. More hands go on its one branch (the `implement-spec` skill's integration branch), not into more merge requests.
 
 ## Process
 
@@ -26,20 +28,21 @@ If you have not already explored the codebase, do so to understand the current s
 
 ### 3. Draft the jobs
 
-Break the work into **jobs**.
+Shape the work as **one job**. Split it only where one merge request can't hold it.
 
 <job-rules>
 
 - A job is a whole piece of the product: a screen that works end to end on the real instance, a backend in the new language with the old one deleted, an app on the device. Not a layer, not a step, not a tracer bullet.
 - **Done is a sentence about the user:** "Nate signs in at hive.gumbees.ai, makes a document, edits it, and sees both versions." If done cannot be written that way, the job is a layer or a step; fold it into the job it serves.
-- One person finishes one job before taking the next. A job that needs two people is two jobs with a named seam between them.
+- One person owns the job and lands it, and finishes it before taking the next. Helpers work on the job's one branch.
+- A job splits only where one merge request can't hold it: the work spans two repos (one merge request per repo, linked, each landed by its repo's owner). Never split by size, milestone, phase, screen or layer. Milestones are the order of work inside the job.
 - The old path goes in the same job. No strangler route beside the old one, no parity test suite kept alive for a migration, no expand-contract sequence: replace, delete, and let restart-from-main be the safety net.
-- A job is one merge request, opened with auto-merge set, reviewed once on the whole. A job that outgrows a day gets a second merge request, never a tenth.
+- A job is one merge request, opened with auto-merge set, reviewed once on the whole, however many hours it takes. Follow-ups the user adds while it's open fold into the same issue and merge request.
 - Estimate in hours of the person's time, and name the real limits (review throughput, CI capacity, a decision only the owner can make).
 
 </job-rules>
 
-Give each job its **blockers**: the other jobs that must finish before it can start. Most jobs have none; a long blocker chain is a sign the work was cut into steps again.
+When the work really is more than one job, give each its **blockers**: the other jobs that must finish before it can start. Most jobs have none. A blocker chain is a sign the work was cut into steps again, so fold it back into one.
 
 ### 4. Quiz the user
 
@@ -55,6 +58,7 @@ Ask the user:
 
 - Is each job whole? Could it be finished and used on its own?
 - Is anything a step dressed as a job? Fold it in.
+- Could any two jobs be one merge request? Then they are one job.
 - Are the owners right, one person per job?
 
 Iterate until the user approves.
